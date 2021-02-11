@@ -20,7 +20,7 @@ namespace TODOList
         public int itemID;
         public string title = "";
         public string text = "";
-        public string deadline = "";
+        public DateTime deadline;
 
         public ToDoItem()
         {
@@ -33,6 +33,7 @@ namespace TODOList
             string objText = txtToDo.Text;
             DateTime objDeadline = deadlinePicker.Value;
             
+
 
             if (objTitle.Equals(""))
             {

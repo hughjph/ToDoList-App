@@ -31,18 +31,18 @@
             this.components = new System.ComponentModel.Container();
             this.btnSignUp = new System.Windows.Forms.Button();
             this.toDoItemList = new System.Windows.Forms.DataGridView();
-            this.toDoItems = new TODOList.ToDoItems();
-            this.toDoItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.toDoItemsTableAdapter = new TODOList.ToDoItemsTableAdapters.ToDoItemsTableAdapter();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deadlineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toDoItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.toDoItems = new TODOList.ToDoItems();
+            this.toDoItemsTableAdapter = new TODOList.ToDoItemsTableAdapters.ToDoItemsTableAdapter();
             this.newItembtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.deleteItemBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.toDoItemList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toDoItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toDoItemsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toDoItems)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSignUp
@@ -73,22 +73,9 @@
             this.toDoItemList.Name = "toDoItemList";
             this.toDoItemList.ReadOnly = true;
             this.toDoItemList.RowHeadersVisible = false;
+            this.toDoItemList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.toDoItemList.Size = new System.Drawing.Size(435, 150);
             this.toDoItemList.TabIndex = 10;
-            // 
-            // toDoItems
-            // 
-            this.toDoItems.DataSetName = "ToDoItems";
-            this.toDoItems.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // toDoItemsBindingSource
-            // 
-            this.toDoItemsBindingSource.DataMember = "ToDoItems";
-            this.toDoItemsBindingSource.DataSource = this.toDoItems;
-            // 
-            // toDoItemsTableAdapter
-            // 
-            this.toDoItemsTableAdapter.ClearBeforeFill = true;
             // 
             // titleDataGridViewTextBoxColumn
             // 
@@ -111,6 +98,20 @@
             this.deadlineDataGridViewTextBoxColumn.Name = "deadlineDataGridViewTextBoxColumn";
             this.deadlineDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // toDoItemsBindingSource
+            // 
+            this.toDoItemsBindingSource.DataMember = "ToDoItems";
+            this.toDoItemsBindingSource.DataSource = this.toDoItems;
+            // 
+            // toDoItems
+            // 
+            this.toDoItems.DataSetName = "ToDoItems";
+            this.toDoItems.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // toDoItemsTableAdapter
+            // 
+            this.toDoItemsTableAdapter.ClearBeforeFill = true;
+            // 
             // newItembtn
             // 
             this.newItembtn.Location = new System.Drawing.Point(388, 325);
@@ -129,6 +130,7 @@
             this.button1.TabIndex = 12;
             this.button1.Text = "Open Item";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // deleteItemBtn
             // 
@@ -153,8 +155,8 @@
             this.Text = "Sign Up";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.toDoItemList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toDoItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toDoItemsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toDoItems)).EndInit();
             this.ResumeLayout(false);
 
         }

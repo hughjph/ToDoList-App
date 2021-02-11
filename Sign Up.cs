@@ -18,6 +18,7 @@ namespace TODOList
     public partial class Form1 : Form
     {
         DBAccess objDBAccess = new DBAccess();
+        
 
         public Form1()
         {
@@ -74,6 +75,7 @@ namespace TODOList
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             // TODO: This line of code loads data into the 'toDoItems._ToDoItems' table. You can move, or remove it, as needed.
             this.toDoItemsTableAdapter.Fill(this.toDoItems._ToDoItems);
 
@@ -83,6 +85,46 @@ namespace TODOList
         {
             ToDoItem tdItem = new ToDoItem();
             tdItem.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NoteTakingApp;Integrated Security=True");
+            SqlDataReader dr;
+            SqlCommand cmd;
+
+
+            ToDoItem tdItem = new ToDoItem();
+
+
+            con.Open();
+
+            int index = toDoItemList.CurrentCell.RowIndex;
+            if(index > -1)
+            {
+                Console.WriteLine(toDoItemList.Rows[index].ToString());
+            }
+
+            index += 1;
+
+            cmd = new SqlCommand("SELECT Title, Text, Deadline FROM ToDoItems WHERE ID = " + index, con);
+            dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                Console.WriteLine(dr[0].ToString());
+                Console.WriteLine(dr[1].ToString());
+                Console.WriteLine(dr[2].ToString());
+                tdItem.itemID = index;
+                tdItem.title = dr[0].ToString();
+                tdItem.text = dr[1].ToString();
+                tdItem.deadline = Convert.ToDateTime(dr[2]);
+                tdItem.txtTitle.Text = dr[0].ToString();
+                tdItem.txtToDo.Text = dr[1].ToString();
+                tdItem.deadlinePicker.Value = Convert.ToDateTime(dr[2]);
+                tdItem.Show();
+            }
+
         }
     }
 }

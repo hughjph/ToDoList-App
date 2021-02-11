@@ -151,13 +151,13 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtToDo;
-        private System.Windows.Forms.DateTimePicker deadlinePicker;
         private System.Windows.Forms.CheckBox deadlineCheck;
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Button deleteBtn;
         private System.Windows.Forms.Button cancelBtn;
+        public System.Windows.Forms.TextBox txtTitle;
+        public System.Windows.Forms.TextBox txtToDo;
+        public System.Windows.Forms.DateTimePicker deadlinePicker;
     }
 }
