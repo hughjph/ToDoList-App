@@ -26,10 +26,10 @@ namespace TODOList
 
         private void btnSignUp_Click(object sender, EventArgs e)
         {
+            /*
             string username = txtName.Text;
             string email = txtEmail.Text;
-            string password = txtPassword.Text;
-            string country = txtCountry.Text;
+            string password = txtPassword.Text;            string country = txtCountry.Text;
 
             if (username.Equals(""))
             {
@@ -69,7 +69,20 @@ namespace TODOList
                 {
                     MessageBox.Show("Error");
                 }
-            }
+            }*/
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'toDoItems._ToDoItems' table. You can move, or remove it, as needed.
+            this.toDoItemsTableAdapter.Fill(this.toDoItems._ToDoItems);
+
+        }
+
+        private void newItembtn_Click(object sender, EventArgs e)
+        {
+            ToDoItem tdItem = new ToDoItem();
+            tdItem.Show();
         }
     }
 }
