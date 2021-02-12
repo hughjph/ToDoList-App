@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             this.toDoItemList = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deadlineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toDoItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toDoItems = new TODOList.ToDoItems();
             this.toDoItemsTableAdapter = new TODOList.ToDoItemsTableAdapters.ToDoItemsTableAdapter();
             this.newItembtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.deleteItemBtn = new System.Windows.Forms.Button();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deadlineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.toDoItemList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toDoItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toDoItems)).BeginInit();
@@ -65,52 +65,9 @@
             this.toDoItemList.ReadOnly = true;
             this.toDoItemList.RowHeadersVisible = false;
             this.toDoItemList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.toDoItemList.Size = new System.Drawing.Size(404, 150);
+            this.toDoItemList.Size = new System.Drawing.Size(404, 322);
             this.toDoItemList.TabIndex = 10;
             this.toDoItemList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.toDoItemList_CellContentClick);
-            // 
-            // toDoItemsBindingSource
-            // 
-            this.toDoItemsBindingSource.DataMember = "ToDoItems";
-            this.toDoItemsBindingSource.DataSource = this.toDoItems;
-            // 
-            // toDoItems
-            // 
-            this.toDoItems.DataSetName = "ToDoItems";
-            this.toDoItems.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // toDoItemsTableAdapter
-            // 
-            this.toDoItemsTableAdapter.ClearBeforeFill = true;
-            // 
-            // newItembtn
-            // 
-            this.newItembtn.Location = new System.Drawing.Point(320, 216);
-            this.newItembtn.Name = "newItembtn";
-            this.newItembtn.Size = new System.Drawing.Size(106, 39);
-            this.newItembtn.TabIndex = 11;
-            this.newItembtn.Text = "Add New Item";
-            this.newItembtn.UseVisualStyleBackColor = true;
-            this.newItembtn.Click += new System.EventHandler(this.newItembtn_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(208, 216);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 39);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Open Item";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // deleteItemBtn
-            // 
-            this.deleteItemBtn.Location = new System.Drawing.Point(96, 216);
-            this.deleteItemBtn.Name = "deleteItemBtn";
-            this.deleteItemBtn.Size = new System.Drawing.Size(106, 39);
-            this.deleteItemBtn.TabIndex = 13;
-            this.deleteItemBtn.Text = "Delete Item";
-            this.deleteItemBtn.UseVisualStyleBackColor = true;
             // 
             // ID
             // 
@@ -142,6 +99,50 @@
             this.deadlineDataGridViewTextBoxColumn.Name = "deadlineDataGridViewTextBoxColumn";
             this.deadlineDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // toDoItemsBindingSource
+            // 
+            this.toDoItemsBindingSource.DataMember = "ToDoItems";
+            this.toDoItemsBindingSource.DataSource = this.toDoItems;
+            // 
+            // toDoItems
+            // 
+            this.toDoItems.DataSetName = "ToDoItems";
+            this.toDoItems.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // toDoItemsTableAdapter
+            // 
+            this.toDoItemsTableAdapter.ClearBeforeFill = true;
+            // 
+            // newItembtn
+            // 
+            this.newItembtn.Location = new System.Drawing.Point(312, 399);
+            this.newItembtn.Name = "newItembtn";
+            this.newItembtn.Size = new System.Drawing.Size(106, 39);
+            this.newItembtn.TabIndex = 11;
+            this.newItembtn.Text = "Add New Item";
+            this.newItembtn.UseVisualStyleBackColor = true;
+            this.newItembtn.Click += new System.EventHandler(this.newItembtn_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(200, 399);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(106, 39);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Open Item";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // deleteItemBtn
+            // 
+            this.deleteItemBtn.Location = new System.Drawing.Point(88, 399);
+            this.deleteItemBtn.Name = "deleteItemBtn";
+            this.deleteItemBtn.Size = new System.Drawing.Size(106, 39);
+            this.deleteItemBtn.TabIndex = 13;
+            this.deleteItemBtn.Text = "Delete Item";
+            this.deleteItemBtn.UseVisualStyleBackColor = true;
+            this.deleteItemBtn.Click += new System.EventHandler(this.deleteItemBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,7 +153,7 @@
             this.Controls.Add(this.newItembtn);
             this.Controls.Add(this.toDoItemList);
             this.Name = "Form1";
-            this.Text = "Sign Up";
+            this.Text = "To Do";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.toDoItemList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toDoItemsBindingSource)).EndInit();

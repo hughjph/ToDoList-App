@@ -33,17 +33,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtToDo = new System.Windows.Forms.TextBox();
             this.deadlinePicker = new System.Windows.Forms.DateTimePicker();
-            this.deadlineCheck = new System.Windows.Forms.CheckBox();
             this.saveBtn = new System.Windows.Forms.Button();
-            this.deleteBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(24, 21);
+            this.label1.Location = new System.Drawing.Point(26, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 22);
             this.label1.TabIndex = 0;
@@ -77,21 +76,10 @@
             // deadlinePicker
             // 
             this.deadlinePicker.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deadlinePicker.Location = new System.Drawing.Point(296, 53);
+            this.deadlinePicker.Location = new System.Drawing.Point(296, 46);
             this.deadlinePicker.Name = "deadlinePicker";
             this.deadlinePicker.Size = new System.Drawing.Size(183, 20);
             this.deadlinePicker.TabIndex = 4;
-            // 
-            // deadlineCheck
-            // 
-            this.deadlineCheck.AutoSize = true;
-            this.deadlineCheck.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deadlineCheck.Location = new System.Drawing.Point(296, 21);
-            this.deadlineCheck.Name = "deadlineCheck";
-            this.deadlineCheck.Size = new System.Drawing.Size(104, 26);
-            this.deadlineCheck.TabIndex = 5;
-            this.deadlineCheck.Text = "Deadline";
-            this.deadlineCheck.UseVisualStyleBackColor = true;
             // 
             // saveBtn
             // 
@@ -105,37 +93,36 @@
             this.saveBtn.UseVisualStyleBackColor = false;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
-            // deleteBtn
-            // 
-            this.deleteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.deleteBtn.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteBtn.Location = new System.Drawing.Point(30, 389);
-            this.deleteBtn.Name = "deleteBtn";
-            this.deleteBtn.Size = new System.Drawing.Size(149, 49);
-            this.deleteBtn.TabIndex = 7;
-            this.deleteBtn.Text = "Delete To Do";
-            this.deleteBtn.UseVisualStyleBackColor = false;
-            // 
             // cancelBtn
             // 
             this.cancelBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.cancelBtn.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelBtn.Location = new System.Drawing.Point(185, 389);
+            this.cancelBtn.Location = new System.Drawing.Point(28, 389);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(149, 49);
             this.cancelBtn.TabIndex = 8;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = false;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(292, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(85, 22);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Deadline";
             // 
             // ToDoItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(533, 450);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.cancelBtn);
-            this.Controls.Add(this.deleteBtn);
             this.Controls.Add(this.saveBtn);
-            this.Controls.Add(this.deadlineCheck);
             this.Controls.Add(this.deadlinePicker);
             this.Controls.Add(this.txtToDo);
             this.Controls.Add(this.label2);
@@ -152,12 +139,11 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox deadlineCheck;
         private System.Windows.Forms.Button saveBtn;
-        private System.Windows.Forms.Button deleteBtn;
         private System.Windows.Forms.Button cancelBtn;
         public System.Windows.Forms.TextBox txtTitle;
         public System.Windows.Forms.TextBox txtToDo;
         public System.Windows.Forms.DateTimePicker deadlinePicker;
+        private System.Windows.Forms.Label label3;
     }
 }

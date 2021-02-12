@@ -13,16 +13,34 @@ using DatabaseProject;
 namespace TODOList
 {
 
-    
-
     public partial class Form1 : Form
     {
-        DBAccess objDBAccess = new DBAccess();
         
+        SqlConnection con;
+        SqlDataAdapter DataAdapter;
+        SqlDataReader dr;
+        SqlCommand cmd;
+        ToDoItem tdItem = new ToDoItem();
+
 
         public Form1()
         {
             InitializeComponent();
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+            // TODO: This line of code loads data into the 'toDoItems._ToDoItems' table. You can move, or remove it, as needed.
+            this.toDoItemsTableAdapter.Fill(this.toDoItems._ToDoItems);
+            con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NoteTakingApp;Integrated Security=True");
+            DataAdapter = new SqlDataAdapter();
+        }
+
+
+        void ReloadForm()
+        {
+            this.toDoItemsTableAdapter.Fill(this.toDoItems._ToDoItems);
+
         }
 
         private void btnSignUp_Click(object sender, EventArgs e)
@@ -73,17 +91,19 @@ namespace TODOList
             }*/
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-            // TODO: This line of code loads data into the 'toDoItems._ToDoItems' table. You can move, or remove it, as needed.
-            this.toDoItemsTableAdapter.Fill(this.toDoItems._ToDoItems);
 
+        public int GetSelectedItem()
+        {
+            int ItemID;
+            int rowNum = toDoItemList.CurrentCell.RowIndex;
+            ItemID = Convert.ToInt32(toDoItemList.Rows[rowNum].Cells[0].Value);
+            return ItemID;
         }
+
+
 
         private void newItembtn_Click(object sender, EventArgs e)
         {
-            ToDoItem tdItem = new ToDoItem();
             tdItem.itemID = 0;
             tdItem.Show();
             this.Hide();
@@ -91,33 +111,17 @@ namespace TODOList
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NoteTakingApp;Integrated Security=True");
-            SqlDataReader dr;
-            SqlCommand cmd;
-            int ItemIDInt;
-
-            ToDoItem tdItem = new ToDoItem();
-
-
             con.Open();
-
-            int index = toDoItemList.CurrentCell.RowIndex;
-            if(index > -1)
+            try
             {
-                Console.WriteLine(toDoItemList.Rows[index].ToString());
-                Console.WriteLine(toDoItemList.Rows[index].Cells[0].Value);
-                ItemIDInt = Convert.ToInt32(toDoItemList.Rows[index].Cells[0].Value);
+                int ItemID = GetSelectedItem();
 
-                cmd = new SqlCommand("SELECT Title, Text, Deadline FROM ToDoItems WHERE ID = " + ItemIDInt, con);
+                cmd = new SqlCommand("SELECT Title, Text, Deadline FROM ToDoItems WHERE ID = " + ItemID, con);
                 dr = cmd.ExecuteReader();
-
+                
                 if (dr.Read())
                 {
-                    Console.WriteLine(dr[0].ToString());
-                    Console.WriteLine(dr[1].ToString());
-                    Console.WriteLine(dr[2].ToString());
-
-                    tdItem.itemID = ItemIDInt;
+                    tdItem.itemID = ItemID;
                     tdItem.title = dr[0].ToString();
                     tdItem.text = dr[1].ToString();
                     tdItem.deadline = Convert.ToDateTime(dr[2]);
@@ -127,12 +131,45 @@ namespace TODOList
                     tdItem.Show();
                     this.Hide();
                 }
+                
             }
+            catch
+            {
+                MessageBox.Show("Please Select An Item");
+            }
+            
         }
 
         private void toDoItemList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void deleteItemBtn_Click(object sender, EventArgs e)
+        {
+            con.Open();
+            try
+            {
+                int ItemIDInt = GetSelectedItem();
+                int index = toDoItemList.CurrentCell.RowIndex;
+                if (index > -1)
+                {
+                    Console.WriteLine(toDoItemList.Rows[index].ToString());
+                    Console.WriteLine(toDoItemList.Rows[index].Cells[0].Value);
+                    ItemIDInt = Convert.ToInt32(toDoItemList.Rows[index].Cells[0].Value);
+
+                    cmd = new SqlCommand("DELETE FROM ToDoItems Where ID = " + ItemIDInt, con);
+                    DataAdapter.UpdateCommand = cmd;
+                    DataAdapter.UpdateCommand.ExecuteNonQuery();
+                    ReloadForm();
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("Please Select An Item");
+            }
+            con.Close();
         }
     }
 }

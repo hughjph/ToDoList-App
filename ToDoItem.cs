@@ -14,21 +14,36 @@ namespace TODOList
 {
     public partial class ToDoItem : Form
     {
-        DBAccess objDBAccess = new DBAccess();
-
+        
+        SqlConnection con;
+        SqlDataAdapter DataAdapter;
+        SqlDataReader dr;
+        SqlCommand cmd;
         public bool newItem = true;
         public int? itemID;
         public string title = "";
         public string text = "";
         public DateTime deadline;
-        Form1 MainPage = new Form1();
+        Form1 MainPage;
+
+
         public ToDoItem()
         {
             InitializeComponent();
         }
 
+        void InitializeVariables()
+        {
+            con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NoteTakingApp;Integrated Security=True");
+            DataAdapter = new SqlDataAdapter();
+            MainPage = new Form1();
+        }
+
+
         private void saveBtn_Click(object sender, EventArgs e)
         {
+            InitializeVariables();
+
             string objTitle = txtTitle.Text;
             string objText = txtToDo.Text;
             DateTime objDeadline = deadlinePicker.Value;
@@ -41,56 +56,50 @@ namespace TODOList
 
             } else if(itemID.Equals(0))
             {
-                SqlCommand insertCommand;
-
-                insertCommand = new SqlCommand("insert into ToDoItems(Title, Text, Deadline) values(@title, @text, @deadline)");
-                insertCommand.Parameters.AddWithValue("@title", objTitle);
-                insertCommand.Parameters.AddWithValue("@text", objText);
-                insertCommand.Parameters.AddWithValue("@deadline", objDeadline);
-
-
-
-
-                int row = objDBAccess.executeQuery(insertCommand);
-
-                if (row == 1)
+                con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NoteTakingApp;Integrated Security=True");
+                try
                 {
+                    con.Open();
+                    cmd = new SqlCommand("insert into ToDoItems(Title, Text, Deadline) values(@title, @text, @deadline)");
+                    cmd.Parameters.AddWithValue("@title", objTitle);
+                    cmd.Parameters.AddWithValue("@text", objText);
+                    cmd.Parameters.AddWithValue("@deadline", objDeadline);
+
+
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.ExecuteNonQuery();
+
+                    Console.WriteLine("WrittenData");
+
                     MessageBox.Show("Saved");
-                    
                     MainPage.Show();
                     this.Hide();
-                    
-
                 }
-                else
+                catch
                 {
                     MessageBox.Show("Error!");
                 }
             }
             else
             {
-
                 try
-                {
-                    SqlConnection con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NoteTakingApp;Integrated Security=True");
-                    SqlDataAdapter da = new SqlDataAdapter();
-                    SqlCommand cmd;
+                {        
                     con.Open();
 
-
                     cmd = new SqlCommand("UPDATE ToDoItems Set Title='" + objTitle + "' WHERE ID = " + itemID, con);
-                    da.UpdateCommand = cmd;
-                    da.UpdateCommand.ExecuteNonQuery();
+                    DataAdapter.UpdateCommand = cmd;
+                    DataAdapter.UpdateCommand.ExecuteNonQuery();
 
                     cmd = new SqlCommand("UPDATE ToDoItems Set text='" + objText + "' WHERE ID = " + itemID, con);
-                    da.UpdateCommand = cmd;
-                    da.UpdateCommand.ExecuteNonQuery();
-
+                    DataAdapter.UpdateCommand = cmd;
+                    DataAdapter.UpdateCommand.ExecuteNonQuery();
 
                     cmd = new SqlCommand($"UPDATE ToDoItems Set Deadline=@deadline WHERE ID = " + itemID, con);
                     cmd.Parameters.AddWithValue("@deadline", objDeadline);
-                    da.UpdateCommand = cmd;
-                    da.UpdateCommand.ExecuteNonQuery();
+                    DataAdapter.UpdateCommand = cmd;
+                    DataAdapter.UpdateCommand.ExecuteNonQuery();
 
                     cmd.Dispose();
                     con.Close();
@@ -106,6 +115,13 @@ namespace TODOList
 
 
             }
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            InitializeVariables();
+            MainPage.Show();
+            this.Hide();
         }
     }
 }
