@@ -76,6 +76,7 @@
             this.toDoItemList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.toDoItemList.Size = new System.Drawing.Size(435, 150);
             this.toDoItemList.TabIndex = 10;
+            this.toDoItemList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.toDoItemList_CellContentClick);
             // 
             // titleDataGridViewTextBoxColumn
             // 

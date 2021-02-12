@@ -17,11 +17,11 @@ namespace TODOList
         DBAccess objDBAccess = new DBAccess();
 
         public bool newItem = true;
-        public int itemID;
+        public int? itemID;
         public string title = "";
         public string text = "";
         public DateTime deadline;
-
+        Form1 MainPage = new Form1();
         public ToDoItem()
         {
             InitializeComponent();
@@ -39,33 +39,72 @@ namespace TODOList
             {
                 MessageBox.Show("Please enter a Title");
 
-            }
-            else
+            } else if(itemID.Equals(null))
             {
-
                 SqlCommand insertCommand;
-                
+
                 insertCommand = new SqlCommand("insert into ToDoItems(Title, Text, Deadline) values(@title, @text, @deadline)");
                 insertCommand.Parameters.AddWithValue("@title", objTitle);
                 insertCommand.Parameters.AddWithValue("@text", objText);
                 insertCommand.Parameters.AddWithValue("@deadline", objDeadline);
-                
+
 
 
 
                 int row = objDBAccess.executeQuery(insertCommand);
 
-                if(row == 1)
+                if (row == 1)
                 {
                     MessageBox.Show("Saved");
-
+                    
+                    MainPage.Show();
                     this.Hide();
                     
+
                 }
                 else
                 {
                     MessageBox.Show("Error!");
                 }
+            }
+            else
+            {
+
+                try
+                {
+                    SqlConnection con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NoteTakingApp;Integrated Security=True");
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    SqlCommand cmd;
+                    con.Open();
+
+
+                    cmd = new SqlCommand("UPDATE ToDoItems Set Title='" + objTitle + "' WHERE ID = " + itemID, con);
+                    da.UpdateCommand = cmd;
+                    da.UpdateCommand.ExecuteNonQuery();
+
+                    cmd = new SqlCommand("UPDATE ToDoItems Set text='" + objText + "' WHERE ID = " + itemID, con);
+                    da.UpdateCommand = cmd;
+                    da.UpdateCommand.ExecuteNonQuery();
+
+
+                    cmd = new SqlCommand($"UPDATE ToDoItems Set Deadline=@deadline WHERE ID = " + itemID, con);
+                    cmd.Parameters.AddWithValue("@deadline", objDeadline);
+                    da.UpdateCommand = cmd;
+                    da.UpdateCommand.ExecuteNonQuery();
+
+                    cmd.Dispose();
+                    con.Close();
+
+                    MessageBox.Show("Saved!");
+                    MainPage.Show();
+                    this.Hide();
+                }
+                catch
+                {
+                    MessageBox.Show("Error!");
+                }
+
+
             }
         }
     }

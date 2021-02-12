@@ -84,7 +84,9 @@ namespace TODOList
         private void newItembtn_Click(object sender, EventArgs e)
         {
             ToDoItem tdItem = new ToDoItem();
+            tdItem.itemID = null;
             tdItem.Show();
+            this.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -123,7 +125,13 @@ namespace TODOList
                 tdItem.txtToDo.Text = dr[1].ToString();
                 tdItem.deadlinePicker.Value = Convert.ToDateTime(dr[2]);
                 tdItem.Show();
+                this.Hide();
             }
+
+        }
+
+        private void toDoItemList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

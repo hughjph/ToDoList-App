@@ -53,11 +53,11 @@
     <Compile Include="HomePage.Designer.cs">
       <DependentUpon>HomePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sign Up.cs">
+    <Compile Include="SignUp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Sign Up.Designer.cs">
-      <DependentUpon>Sign Up.cs</DependentUpon>
+    <Compile Include="SignUp.Designer.cs">
+      <DependentUpon>SignUp.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,8 +81,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Sign Up.resx">
-      <DependentUpon>Sign Up.cs</DependentUpon>
+    <EmbeddedResource Include="SignUp.resx">
+      <DependentUpon>SignUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToDoItem.resx">
       <DependentUpon>ToDoItem.cs</DependentUpon>
