@@ -31,15 +31,31 @@ namespace TODOList
         {
             
             // TODO: This line of code loads data into the 'toDoItems._ToDoItems' table. You can move, or remove it, as needed.
-            this.toDoItemsTableAdapter.Fill(this.toDoItems._ToDoItems);
+            
             con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NoteTakingApp;Integrated Security=True");
             DataAdapter = new SqlDataAdapter();
+            ReloadForm();
+            
+
         }
 
 
         void ReloadForm()
         {
-            this.toDoItemsTableAdapter.Fill(this.toDoItems._ToDoItems);
+            DataAdapter = new SqlDataAdapter("SELECT * FROM ToDoItems", con);
+            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(DataAdapter);
+            DataSet ds = new DataSet();
+            DataAdapter.Fill(ds);
+            toDoItemList.ReadOnly = true;
+            toDoItemList.DataSource = ds.Tables[0];
+            
+            foreach(DataGridViewColumn column in toDoItemList.Columns)
+            {
+                if(column.Name == "Text")
+                {
+                    column.Width = 200;
+                }
+            }
 
         }
 
