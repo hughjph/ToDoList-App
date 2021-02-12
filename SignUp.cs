@@ -84,7 +84,7 @@ namespace TODOList
         private void newItembtn_Click(object sender, EventArgs e)
         {
             ToDoItem tdItem = new ToDoItem();
-            tdItem.itemID = null;
+            tdItem.itemID = 0;
             tdItem.Show();
             this.Hide();
         }
@@ -94,7 +94,7 @@ namespace TODOList
             SqlConnection con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NoteTakingApp;Integrated Security=True");
             SqlDataReader dr;
             SqlCommand cmd;
-
+            int ItemIDInt;
 
             ToDoItem tdItem = new ToDoItem();
 
@@ -105,29 +105,29 @@ namespace TODOList
             if(index > -1)
             {
                 Console.WriteLine(toDoItemList.Rows[index].ToString());
+                Console.WriteLine(toDoItemList.Rows[index].Cells[0].Value);
+                ItemIDInt = Convert.ToInt32(toDoItemList.Rows[index].Cells[0].Value);
+
+                cmd = new SqlCommand("SELECT Title, Text, Deadline FROM ToDoItems WHERE ID = " + ItemIDInt, con);
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    Console.WriteLine(dr[0].ToString());
+                    Console.WriteLine(dr[1].ToString());
+                    Console.WriteLine(dr[2].ToString());
+
+                    tdItem.itemID = ItemIDInt;
+                    tdItem.title = dr[0].ToString();
+                    tdItem.text = dr[1].ToString();
+                    tdItem.deadline = Convert.ToDateTime(dr[2]);
+                    tdItem.txtTitle.Text = dr[0].ToString();
+                    tdItem.txtToDo.Text = dr[1].ToString();
+                    tdItem.deadlinePicker.Value = Convert.ToDateTime(dr[2]);
+                    tdItem.Show();
+                    this.Hide();
+                }
             }
-
-            index += 1;
-
-            cmd = new SqlCommand("SELECT Title, Text, Deadline FROM ToDoItems WHERE ID = " + index, con);
-            dr = cmd.ExecuteReader();
-
-            if (dr.Read())
-            {
-                Console.WriteLine(dr[0].ToString());
-                Console.WriteLine(dr[1].ToString());
-                Console.WriteLine(dr[2].ToString());
-                tdItem.itemID = index;
-                tdItem.title = dr[0].ToString();
-                tdItem.text = dr[1].ToString();
-                tdItem.deadline = Convert.ToDateTime(dr[2]);
-                tdItem.txtTitle.Text = dr[0].ToString();
-                tdItem.txtToDo.Text = dr[1].ToString();
-                tdItem.deadlinePicker.Value = Convert.ToDateTime(dr[2]);
-                tdItem.Show();
-                this.Hide();
-            }
-
         }
 
         private void toDoItemList_CellContentClick(object sender, DataGridViewCellEventArgs e)

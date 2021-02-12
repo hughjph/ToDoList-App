@@ -39,7 +39,7 @@ namespace TODOList
             {
                 MessageBox.Show("Please enter a Title");
 
-            } else if(itemID.Equals(null))
+            } else if(itemID.Equals(0))
             {
                 SqlCommand insertCommand;
 
