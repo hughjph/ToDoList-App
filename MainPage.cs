@@ -30,8 +30,6 @@ namespace TODOList
         private void Form1_Load(object sender, EventArgs e)
         {
             
-            // TODO: This line of code loads data into the 'toDoItems._ToDoItems' table. You can move, or remove it, as needed.
-            
             con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NoteTakingApp;Integrated Security=True");
             DataAdapter = new SqlDataAdapter();
             ReloadForm();
